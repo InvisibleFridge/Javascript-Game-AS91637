@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+c<!DOCTYPE html> 
 <html>
 <head>
     <meta charset="utf-8" />
@@ -14,7 +14,6 @@
             display: block;
             margin: 0 auto;
         }
-        
     </style>
 </head>
 
@@ -33,7 +32,7 @@
 	var paddleHeight = 10;
 	var paddleWidth = 75;
 	var paddleX = (canvas.width - paddleWidth) /2;
-	var paddleImage =document.getElementById("paddle.png")
+
     //adds in boolean variables for keyboard controls
 	var rightPressed = false;
 	var leftPressed = false;
@@ -47,6 +46,8 @@
 	var brickOffsetTop = 30;
 	var brickOffsetLeft = 30;
 
+	var score = 0;
+	var lives = 3;
         //add the for loops that add the bricks
 	var bricks = [];
 	for(c=0; c<brickColumnCount; c++){
@@ -84,11 +85,23 @@
 	                if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
 	                    dy = -dy;
 	                    b.status = 0;
+	                    score++;
+	                    if (score == brickRowCount * brickColumnCount) {
+	                        alert("You're a winner!");
+	                        document.location.reload();
+	                    }
 	                }
 	            }
 	        }
 	    }
 	}
+
+	function drawScore() {
+	    ctx.font = "16px Arial";
+	    ctx.fillStyle = "#0095DD";
+	    ctx.fillText("Score : " + score, 8, 20);
+	}
+
 	function drawBall(){
 	    ctx.beginPath();
 	    ctx.arc(x,y,ballRadius,0,Math.PI*2);
@@ -104,6 +117,12 @@
 	    ctx.fill();
 	    ctx.closePath();
 	}
+
+	function drawLives() {
+	    ctx.font = "16px Arial";
+	    ctx.fillStyle = "#0095DD";
+	    ctx.fillText("lives: "+lives, canvas.width-65, 20);
+	}
     //sets the side of the canvas for the ball radius to know when its reached the sides of the canvas
 	function draw() {
 	    ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -111,6 +130,8 @@
 	    drawPaddle();
 	    drawBricks();
 	    collisionDetection();
+	    drawScore();
+	    drawLives();
 
         //conditional statement for the ball on the canvas
 	    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius){
@@ -122,14 +143,22 @@
 	    if(y + dy < ballRadius){
 	        dy = -dy;
 	    } else if (y + dy > canvas.height - ballRadius) {
-	        ///
-
+	       
 	        if (x > paddleX && x < paddleX + paddleWidth) {
 	            dy = -dy;
 	        } else {
-
-	            alert("You Lose!");
-	            document.location.reload();
+	            lives--;
+	            if (!lives) {
+	                alert("game over");
+	                document.location.reload();
+	            }
+	            else {
+	                x = canvas.width / 2;
+	                y = canvas.height - 30;
+	                dx = 2;
+	                dy = -2;
+	                paddleX=(canvas.width-paddleWidth)/2;
+	            }
 	        }
 	    }
 
@@ -162,6 +191,7 @@
 	        leftPressed = false;
 	    }
 	}
+
 
 
 
