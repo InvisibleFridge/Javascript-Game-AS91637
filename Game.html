@@ -1,4 +1,4 @@
-c<!DOCTYPE html> 
+<!DOCTYPE html> 
 <html>
 <head>
     <meta charset="utf-8" />
@@ -69,7 +69,7 @@ c<!DOCTYPE html>
 	                bricks[c][r].y = brickY;
 	                ctx.beginPath();
 	                ctx.rect(brickX, brickY, brickWidth, brickHeight);
-	                ctx.fillStyle = "#0095DD";
+	                ctx.fillStyle = "#ffd433";
 	                ctx.fill();
 	                ctx.closePath();
 	            }
@@ -98,14 +98,14 @@ c<!DOCTYPE html>
 
 	function drawScore() {
 	    ctx.font = "16px Arial";
-	    ctx.fillStyle = "#0095DD";
+	    ctx.fillStyle = "#ffd433";
 	    ctx.fillText("Score : " + score, 8, 20);
 	}
 
 	function drawBall(){
 	    ctx.beginPath();
 	    ctx.arc(x,y,ballRadius,0,Math.PI*2);
-	    ctx.fillStyle="#0095DD";
+	    ctx.fillStyle="#ffd433";
 	    ctx.fill();
 	    ctx.closePath();
 	}
@@ -113,14 +113,14 @@ c<!DOCTYPE html>
 	function drawPaddle() {
 	    ctx.beginPath();
 	    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-	    ctx.fillStyle = '#0095DD';
+	    ctx.fillStyle = '#ffd433';
 	    ctx.fill();
 	    ctx.closePath();
 	}
 
 	function drawLives() {
 	    ctx.font = "16px Arial";
-	    ctx.fillStyle = "#0095DD";
+	    ctx.fillStyle = "#ffd433";
 	    ctx.fillText("lives: "+lives, canvas.width-65, 20);
 	}
     //sets the side of the canvas for the ball radius to know when its reached the sides of the canvas
