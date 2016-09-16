@@ -45,6 +45,8 @@
 	var brickPadding = 10;
 	var brickOffsetTop = 30;
 	var brickOffsetLeft = 30;
+	var paddleImage = new Image();
+	paddleImage.src = "Paddle.png";
 
 	var score = 0;
 	var lives = 3;
@@ -110,10 +112,11 @@
 	    ctx.closePath();
 	}
 
-	function drawPaddle() {
+function drawPaddle() {
 	    ctx.beginPath();
-	    ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
-	    ctx.fillStyle = '#ffd433';
+	    //ctx.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+	    ctx.drawImage(paddleImage, paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight);
+	    ctx.fillStyle = '#0095DD';
 	    ctx.fill();
 	    ctx.closePath();
 	}
