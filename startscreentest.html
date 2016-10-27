@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<script>
+var startScreen = (function(input) {
+
+    // the red component of rgb
+    var hue = 0; 
+    // are we moving toward red or black?
+    var direction = 1; 
+    var transitioning = false;
+
+    // record the input state from last frame
+    // because we need to compare it in the
+    // current frame
+    var wasButtonDown = false;
+
+    // a helper function
+    // used internally to draw the text in
+    // in the center of the canvas (with respect
+    // to the x coordinate)
+    function centerText(ctx, text, y) {
+        var measurement = ctx.measureText(text);
+        var x = (ctx.canvas.width - measurement.width) / 2;
+        ctx.fillText(text, x, y);
+    }
+    
+    // draw the main menu to the canvas
+    function draw(ctx, elapsed) {
+        
+        // let's draw the text in the middle of the canvas
+        // note that it's ineffecient to calculate this 
+        // in every frame since it never changes 
+        // however, I leave it here for simplicity
+        var y = ctx.canvas.height / 2;
+        
+        // create a css color from the `hue`
+        var color = 'rgb(' + hue + ',0,0)';
+        
+        // clear the entire canvas
+        // (this is not strictly necessary since we are always
+        // updating the same pixels for this screen, however it
+        // is generally what you need to do.)
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+       
+        ctx.fillStyle = '#ffd433';
+        ctx.font = '48px Arial';
+        centerText(ctx, 'Mech kek', y);
+
+        
+        ctx.fillStyle = '#ffd433';
+        ctx.font = '24px Arial';
+        centerText(ctx, 'click to begin', y + 30);
+
+	ctx.fillStyle = '#ffd433';
+	ctx.font = '24px Arial';
+	centerText(ctx, 'Use left and right arrow keys to move');
+
+	ctx.fillStyle = '#ffd433';
+	ctx.font = '24px Arial';
+	centerText(ctx, 'Destroy all vials to win!');
+    }
+
+	var rate = 0.128;
+    
+    function update(elapsed) {
+       var amount = rate * elapsed;
+        hue += amount * direction;
+        if (hue > 255) direction = -1;
+        if (hue < 0) direction = 1;
+        
+	rounded_hue = Math.round(hue);
+    
+        var isButtonDown = input.isButtonDown();
+
+       
+        var mouseJustClicked = !isButtonDown && wasButtonDown;
+
+        if (mouseJustClicked && !transitioning) {
+            transitioning = true;
+            // do something here to transition to the actual game
+        }
+
+        // record the state of input for use in the next frame
+        wasButtonDown = isButtonDown;
+    }
+
+    // this is the object that will be `startScreen`
+    return {
+        update: function(timeElaspedSinceLastFrame) { },
+        draw: function(drawingContext) { }
+    };
+
+}());
+</script>
+</html>
